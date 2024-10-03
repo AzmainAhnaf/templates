@@ -1,3 +1,6 @@
+// intro: this segment tree offers range updates, and range queries as well for
+// the following kind of operations
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -9,7 +12,7 @@ using namespace std;
 // similarly this is also possible
 // max(a + v, b + v) = max(a, b) + v
 // ((a or v) and (b or v)) = (a and b) or v
-// this way the operation should follow distrubutive property as well
+// this way the operation should follow distributive property as well
 // the modify operation should be the one that can be distributed properly
 
 const long long MOD = 1e9 + 7;
@@ -22,6 +25,7 @@ struct segtree {
     // ops = operational quantity
     vector<long long> values, ops;
 
+    long long NEUTRAL_VALUE = 0;
 
     // operation to mass change l to r
     long long modify_op(long long a, long long b){
@@ -47,7 +51,7 @@ struct segtree {
         int m = (lx + rx) / 2;
         build(2 * x + 1, lx, m);
         build(2 * x + 2, m, rx);
-        values[x] = values[2 * x + 1] + values[2 * x + 2] % MOD;
+        values[x] = calc_op(values[2 * x + 1], values[2 * x + 2]);
     }
 
     // initializing with proper size
@@ -80,7 +84,7 @@ struct segtree {
 
     // calculating l to r
     long long calc(int l, int r, int x, int lx, int rx){
-        if (rx <= l || r <= lx) return 0ll;
+        if (rx <= l || r <= lx) return NEUTRAL_VALUE;
         if (lx >= l && rx <= r){
             return values[x];
         }
