@@ -2,9 +2,11 @@
 
 using namespace std;
 
-long long power(long long a, long long b, long long m)
+typedef long long ll;
+
+ll binpow(ll a, ll b, ll m)
 {
-    long long res = 1 % m;
+    ll res = 1 % m;
     a %= m;
     if (a < 0) a += m;
     while(b)
