@@ -4,8 +4,7 @@ using namespace std;
 
 typedef long long ll;
 
-ll binpow(ll a, ll b, ll m)
-{
+ll binpow(ll a, ll b, ll m) {
     ll res = 1 % m;
     a %= m;
     if (a < 0) a += m;
