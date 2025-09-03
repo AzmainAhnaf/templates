@@ -1,4 +1,4 @@
-// Problem Name: Convux Hull
+// Problem Name: Convex Hull
 // Problem Link: https://cses.fi/problemset/task/2195
 
 #include <bits/stdc++.h>
@@ -93,10 +93,10 @@ struct ConvexHull {
         sort(all(a), cmp);
     }
 
-    void build(){
+    vector<pt> build(){
         if (a.size() == 1) {
             hull = a;
-            return;
+            return hull;
         }
         pt p1 = a[0], p2 = a.back();
         vector<pt> up, down;
@@ -126,7 +126,7 @@ struct ConvexHull {
         if (include_collinear && up.size() == a.size()){
             hull = a;
             reverse(all(hull));
-            return;
+            return hull;
         }
         for (int i = 0; i < (int)up.size(); i++){
             hull.PB(up[i]);
@@ -134,6 +134,7 @@ struct ConvexHull {
         for (int i = (int)down.size() - 2; i > 0; i--){
             hull.PB(down[i]);
         }
+        return hull;
     }
 };
 
@@ -147,12 +148,12 @@ void solve(int tc){
     sort(all(a), cmp);
 
     ConvexHull ch(a, true);
-    ch.build();
+    vector<pt> hull = ch.build();
 
-    cout << ch.hull.size() << "\n";
+    cout << hull.size() << "\n";
 
-    for (int i = 0; i < (int)ch.hull.size(); i++){
-        cout << ch.hull[i].x << " " << ch.hull[i].y << "\n";
+    for (int i = 0; i < (int)hull.size(); i++){
+        cout << hull[i].x << " " << hull[i].y << "\n";
     }
 }
 
