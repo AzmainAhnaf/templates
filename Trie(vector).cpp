@@ -5,7 +5,6 @@ using namespace std;
 #define PB push_back
 
 struct Trie {
-
     struct Node {
         int next[26];
         int counter;
@@ -14,15 +13,12 @@ struct Trie {
             counter = 0;
         }
     };
-
     vector<Node> adj;
     int idx;
-
     Trie () {
         adj.PB(Node());
         idx = 1; 
     }
-
     void insert(string &s){
         int cur = 0;
         for (char c: s){
@@ -34,9 +30,6 @@ struct Trie {
             adj[cur].counter++;
         }
     }
-
-    
-
     int query(string &s){
         int cur = 0;
         for (char c: s){
@@ -48,9 +41,7 @@ struct Trie {
 };
 
 void solve(int tst){
-
     Trie trie;
-
     int n, m;
     cin >> n >> m;
     string s;
@@ -62,12 +53,6 @@ void solve(int tst){
         cin >> s;
         cout << trie.query(s) << "\n";
     }
-
-    // for (int i = 0; i < 26; i++){
-    //     cout << trie.adj[0].next[i] << " " << trie.adj[trie.adj[0].next[i]].counter << "\n";
-    // }
-    // cout << "\n";
-
 }
 
 int main(){
