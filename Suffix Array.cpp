@@ -86,6 +86,7 @@ vector<int> sort_cyclic_shifts(string const &s){
 vector<int> suffix_array(string s){
     s += '$';
     vi ret = sort_cyclic_shifts(s);
+    ret = vi(ret.begin() + 1, ret.end());
     return ret;
 }
 
