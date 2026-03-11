@@ -30,6 +30,7 @@ const ll mod = 998244353;
 const ll MOD = 1e9 + 7;
 const ll INF = 1e18;
 
+// Time Complexity: O(|s|log|s|)
 vector<int> sort_cyclic_shifts(string const &s){
     int n = s.size();
     const int alphabet = 256;

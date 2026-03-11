@@ -93,6 +93,7 @@ vector<int> suffix_array(string s){
 // Kasai's Algo
 // p = suffix array
 // lcp[i] = length of lcp starting at index p[i] and p[i + 1]
+// Time Complexity O(n)
 vi lcp_construction(string const &s, vi const &p){
     int n = s.size();
     vi rank(n, 0);
