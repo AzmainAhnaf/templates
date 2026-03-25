@@ -1,5 +1,5 @@
-// Problem Name: Counting Patterns
-// Problem Link: https://cses.fi/problemset/task/2103/
+// Problem Name: Distinct Substrings
+// Problem Link: https://cses.fi/problemset/task/2105
 
 #include <bits/stdc++.h>
 // #include <ext/pb_ds/assoc_container.hpp>
@@ -29,8 +29,8 @@ using namespace std;
 const ll mod = 998244353;
 const ll MOD = 1e9 + 7;
 const ll INF = 1e18;
+const int inf = 1e9;
 
-// Time Complexity: O(|s|log|s|)
 vector<int> sort_cyclic_shifts(string const &s){
     int n = s.size();
     const int alphabet = 256;
@@ -90,40 +90,48 @@ vector<int> suffix_array(string s){
     return ret;
 }
 
+// Kasai's Algo
+// p = suffix array
+// lcp[i] = length of lcp starting at index p[i] and p[i + 1]
+// Time Complexity O(n)
+vi buildLCP(string const &s, vi const &p){
+    int n = s.size();
+    vi rank(n, 0);
+    for (int i = 0; i < n; i++){
+        rank[p[i]] = i;
+    }
+
+    int k = 0;
+    vi lcp(n - 1, 0);
+    for (int i = 0; i < n; i++){
+        if (rank[i] == n - 1){
+            k = 0;
+            continue;
+        }
+        int j = p[rank[i] + 1];
+        while (i + k < n && j + k < n && s[i + k] == s[j + k]){
+            k++;
+        }
+        lcp[rank[i]] = k;
+        if (k) k--;
+    }
+    return lcp;
+}
 
 void solve(int tst){
     string s;
     cin >> s;
-    int n = (int)s.size();
-    vi ans = suffix_array(s);
-    vi SA = vi(ans.begin() + 1, ans.end());
-    int k;
-    cin >> k;
-    while(k--){
-        string t;
-        cin >> t;
-        int m = (int)t.size();
-        int l = -1, r = n;
-        if (m > n) {
-            cout << "0\n";
-            continue;
-        }
 
-        while (l < r - 1){
-            int mid = l + (r - l) / 2;
-            if (s.substr(SA[mid], m) >= t) r = mid;
-            else l = mid;
-        }
-        int ans = -r;
-        l = -1, r = n;
-        while (l < r - 1){
-            int mid = l + (r - l) / 2;
-            if (s.substr(SA[mid], m) > t) r = mid;
-            else l = mid;
-        }
-        ans += r;
-        cout << ans << "\n";
-    }
+    vi p = suffix_array(s);
+
+    vi lcp = buildLCP(s, p);
+
+    ll n = s.size();
+
+    ll ans = (n * (n + 1)) / 2ll;
+    for (auto elem: lcp) ans -= elem;
+    cout << ans << "\n";
+
 }
 
 int main(){
