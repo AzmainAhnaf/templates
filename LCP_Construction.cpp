@@ -94,7 +94,7 @@ vector<int> suffix_array(string s){
 // p = suffix array
 // lcp[i] = length of lcp starting at index p[i] and p[i + 1]
 // Time Complexity O(n)
-vi lcp_construction(string const &s, vi const &p){
+vi buildLCP(string const &s, vi const &p){
     int n = s.size();
     vi rank(n, 0);
     for (int i = 0; i < n; i++){
