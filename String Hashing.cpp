@@ -14,7 +14,7 @@ const int mxn = 1e6;
 ll pw1[mxn + 3];
 ll pw2[mxn + 3];
 const ll m1 = 1e9 + 1011;
-const ll m2 = 1e9 + 1011;
+const ll m2 = 1e9 + 7;
 ll b1 = 1e9 + 21, b2 = 1e9 + 181;
 
 void pre() {
